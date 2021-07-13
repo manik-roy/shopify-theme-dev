@@ -1,0 +1,75 @@
+<section class="footer-section">
+    <div class="container">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col">
+                    <h2>{{block.settings.title}}</h2>
+                    {% case block.type %}
+                        {% when "link_list" %}
+                            <h1>link list</h1>
+                        {% when "text" %}
+                          {{block.settings.content}}
+                        
+                    {% endcase %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Footer",
+        "class": "footer-section",
+        "max_blocks":4,
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "logo",
+                "label": "Upload Logo"
+            }
+        ],
+        "blocks":[
+            {
+                "name": "Menu Block",
+                "type":"link_list",
+                "settings": [
+                   {
+                       "type": "text",
+                       "id": "title",
+                       "label": "Titel"
+                   },
+                    {
+                       "type": "link_list",
+                       "id": "menu",
+                       "label": "Create Menu"
+                   }
+                ]
+            },
+            {
+             "name":"Text block",
+             "type":"text",
+             "settings":[
+                {
+                       "type": "text",
+                       "id": "title",
+                       "label": "Titel"
+                   },
+                 {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Footer Text",
+                    "default": "<p></p>"
+                 }
+             ]   
+            },
+            {
+             "name":"News Letter",
+             "type":"text",
+             "settings":[
+                 
+             ]   
+            }
+        ]
+    }
+{% endschema %}

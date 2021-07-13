@@ -1,0 +1,14 @@
+<h2>{{collection.title}}</h2>
+
+{% paginate collection.products by 3 %}
+
+<div class="row">
+  {% for product in collection.products %}
+    {% include 'product-item' %}
+  {% endfor %}
+</div>
+
+{% if paginate.pages > 1 %}
+  {{ paginate | default_pagination}}
+{% endif %}
+{% endpaginate %}

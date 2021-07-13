@@ -1,0 +1,97 @@
+{% assign collection = collections[section.settings.collection] %}
+
+<h1 class="my-4 {{section.settings.text_alignment}}" style="color:{{section.settings.textColor}};">{{collection.title}}</h1>
+{% if section.settings.isPaginate %}
+    {% paginate collection.products by section.settings.limit %}
+    <div class="row">
+        {% for product in collection.products %}
+            {% include 'product-item' %}
+                {% else %}
+                  <div class="text-center col">
+                      <h3 class="text-center">Item not avaiable !</h3>
+                  </div>
+            {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}
+           <div class="text-center">
+                 {{ paginate | default_pagination}}
+           </div>
+        {% endif %}
+    {% endpaginate %}
+    {% else %}
+        <div class="row">
+            {% for product in collection.products %}
+                {% include 'product-item' %}
+            {% endfor %}
+        </div>
+{% endif %}
+
+
+{% schema %}
+    {
+        "name": "Product Collection",
+        "class": "collection",
+        "settings": [
+           {
+                "type":"collection",
+                "label":"Select Collection",
+                "id":"collection"
+           },
+            {
+                "type": "select",
+                "id": "text_alignment",
+                "label": "Title Alignment",
+                "options": [
+                    {
+                    "value": "text-center",
+                    "label": "Center"
+                    },
+                    {
+                    "value": "text-left",
+                    "label": "Left"
+                    },
+                    {
+                    "value": "text-right",
+                    "label": "Right"
+                    }
+                ],
+                "default": "text-left"
+            },
+            {
+                "type": "color",
+                "id": "textColor",
+                "label": "Title Color",
+                "default": "#000"
+            },
+           {
+               "type":"checkbox",
+               "id":"isPaginate",
+               "label":"Add Pagination",
+               "default":true
+           },
+           {
+                "type": "range",
+                "id": "limit",
+                "min": 3,
+                "max": 10,
+                "step": 1,
+                "label": "Item Show Per Page",
+                "default": 6
+            }
+        ],
+        "presets":[
+            {
+                "name":"Prouct collection",
+                "category":"Custom Content"
+            }
+        ]
+    }
+{% endschema %}
+
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

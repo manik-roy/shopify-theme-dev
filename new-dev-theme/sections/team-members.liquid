@@ -1,0 +1,74 @@
+<div class="page-width">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2 class="mt-4">{{ section.settings.title | escape }}</h2>
+    </div>
+    
+    <div class="row">
+        {% for team in section.blocks %}
+           <div class="col-md-4 mb-2 p-2">
+                {% if team.settings.photo %}
+                   <div class="w-100">
+                     {% comment %} {{ team.settings.photo | img_url: 'medium'| img_tag }} {% endcomment %}
+                     <img class="w-100" src="{{team.settings.photo  | img_url: 'medium'}}" />
+                   </div>
+                {% endif %}
+                <h3>{{team.settings.name}}</h3>
+                <p>{{team.settings.title}}</p>
+                <p class="text-center">{{team.settings.bio}}</p>
+           </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+    {
+        "name":"Team Members",
+        "class":"team-members-section",
+        "settings":[
+            {
+                "type":"text",
+                "id":"title",
+                "label":"Section Title",
+                "default":"Meet Our Team"
+            }
+        ],
+        "blocks":[
+              {
+                "name":"Team Member",
+                "type":"profile",
+                "settings":[
+                    {
+                        "type":"text",
+                        "id":"name",
+                        "label":"Team Member Name"
+                    },
+                    {
+                        "type":"text",
+                        "id":"title",
+                        "label":"Job Title"
+                    },
+                    {
+                        "type":"textarea",
+                        "id":"bio",
+                        "label":"Bio"
+                    },
+                    {
+                        "type":"image_picker",
+                        "id":"photo",
+                        "label":"Team Meber Photo"
+                    }
+                ]
+            }
+        ],
+        "presets":[
+           {
+                "name":"Team Member",
+                "category":"Store Information"
+            }
+        ]
+
+    }
+{% endschema %}

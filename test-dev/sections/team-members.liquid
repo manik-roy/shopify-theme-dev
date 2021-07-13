@@ -1,0 +1,71 @@
+<div class="page-width">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </div>
+    
+    <div class="grid">
+        {% for team in section.blocks %}
+           <div class="grid__item medium-up--one-half" style="margin-bottom:30px;">
+                {% if team.settings.photo %}
+                    {{team.settings.photo| img_url: 'medium'| img_tag }}
+                {% endif %}
+                <h3>{{team.settings.name}}</h3>
+                <p>{{team.settings.title}}</p>
+                <p>{{team.settings.bio}}</p>
+           </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+    {
+        "name":"Team Members",
+        "class":"team-members-section",
+        "settings":[
+            {
+                "type":"text",
+                "id":"title",
+                "label":"Section Title",
+                "default":"Meet Our Team"
+            }
+        ],
+        "blocks":[
+              {
+                "name":"Team Member",
+                "type":"profile",
+                "settings":[
+                    {
+                        "type":"text",
+                        "id":"name",
+                        "label":"Team Member Name"
+                    },
+                    {
+                        "type":"text",
+                        "id":"title",
+                        "label":"Job Title"
+                    },
+                    {
+                        "type":"textarea",
+                        "id":"bio",
+                        "label":"Bio"
+                    },
+                    {
+                        "type":"image_picker",
+                        "id":"photo",
+                        "label":"Team Meber Photo"
+                    }
+                ]
+            }
+        ],
+        "presets":[
+           {
+                "name":"Team Member",
+                "category":"Store Information"
+            }
+        ]
+
+    }
+{% endschema %}

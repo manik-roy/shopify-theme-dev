@@ -1,0 +1,87 @@
+<div class="page-width">
+    <h2 class="{{section.settings.text_alignment}}">{{ section.settings.title }}</h2>
+    <div class="row">
+    {% for block in section.blocks %}
+        <div class="col-md-{{section.settings.size}}">
+            <div class="mb-2">
+                <img class="w-100" src={{block.settings.image | img_url: 'medium'}} />
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name":"Gallery",
+        "class":"gallery",
+         "max_blocks": 8,
+        "settings":[
+             {
+                "type":"text",
+                "id":"title",
+                "label":"Section Title",
+                "default":"Gallery"
+            },
+             {
+                "type": "select",
+                "id": "size",
+                "label": "Image Every Row",
+                "options": [
+                    {
+                    "value": "6",
+                    "label": "Two"
+                    },
+                    {
+                    "value": "4",
+                    "label": "Three"
+                    },
+                    {
+                    "value": "3",
+                    "label": "Four"
+                    }
+                ],
+                "default": "3"
+        },
+        {
+                "type": "select",
+                "id": "text_alignment",
+                "label": "Title Alignment",
+                "options": [
+                    {
+                    "value": "text-center",
+                    "label": "Center"
+                    },
+                    {
+                    "value": "text-left",
+                    "label": "Left"
+                    },
+                    {
+                    "value": "text-right",
+                    "label": "Right"
+                    }
+                ],
+                "default": "text-left"
+            }
+        ],
+        "blocks":[
+           {
+            "name": "Image",
+            "type": "image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Select image"
+                }
+            ]
+            }
+        ],
+        "presets":[
+            {
+                "name":"Gallery collection",
+                "category":"Custom Content"
+            }
+        ]
+    }
+{% endschema %}

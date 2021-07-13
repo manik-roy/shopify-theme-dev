@@ -1,0 +1,11 @@
+  <div class="col-md-4 mb-3">
+   <div class="card border-0 shadow">
+    <div class="card-body border-none">
+      <a href="{{product.url | within:collection}}">
+        <img class="w-100 text-center" src="{{product.featured_image.src | img_url: 'medium' }}" alt="{{product.featured_image.alt | escape}}"  />
+      </a>
+     <h5 class="pt-4"> <a href="{{product.url | within:collection}}">{{product.title}}</a></h5>
+      <h4>Price:{{product.price | money}}</h4>
+    </div>
+   </div>
+  </div>
