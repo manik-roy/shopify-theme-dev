@@ -1,7 +1,9 @@
 // Put your styles in this file.
 // Shopify will compile SCSS/SASS on each deploy.
 // Note: "@import" rules aren’t supported.
-
+body {
+    font-family: 'Poppins', sans-serif;
+}
 a{
     color: #949494 ;
 }
@@ -35,5 +37,55 @@ a{
     h3 {
         font-size: 16px;
         color: azure;
+    }
+}
+
+.item-container {
+    position: relative;
+
+    .bg-img {
+            position: absolute;
+            height: 450px;
+            max-width: 350px;
+            background-color: #949494;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            margin:0 auto;
+            &:after {
+              position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            content: "";
+            background: #949494;
+            z-index: 1;
+            opacity: 0.3;
+            }
+    }
+    .text-content {
+        padding-top: 185px;
+        position: relative;
+        z-index: 2;
+        padding-bottom: 50px;
+        max-width: 300px;
+        h3 {
+            font-size: 70px;
+            font-weight: 700;
+        }
+    }
+}
+.video-conatiner {
+    .embed-responsive.embed-responsive-16by9 {
+        max-width:100%;
+    }
+    h3 {
+        margin-top:15px;
     }
 }

@@ -1,0 +1,170 @@
+{% assign collection = collections[section.settings.collection] %}
+<div class="custom-collection-wrapper container">
+    <div class="row">
+        <div class="col {{section.settings.text_alignment}}" style="margin-top:{{section.settings.margin_top}}px">
+            <h3>{{section.settings.title}}</h3>
+            <p>{{section.settings.details}}</p>
+        </div>
+    </div>
+   
+    {% if section.settings.type=='carousel' %}
+        {% assign min = 169896 %}
+        {% assign max = 766676 %}
+        {% assign diff = max | minus: min %}
+        {% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+
+        {% assign size = 'carousel' %}
+            <script>
+                jQuery(document).ready(function($) {
+                    $(".product-carousel-{{randomNumber}}").slick({
+                        arrows: false,
+                        dots: true,
+                        autoplay: true,
+                        slidesToShow: {{section.settings.item_size}},
+                        prevArrow: '<i class="fa fa-angle-left"></i>',
+                        nextArrow: '<i class="fa fa-angle-right"></i>',
+                        responsive: [
+                            {
+                                breakpoint: 1024,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 3,
+                                    infinite: true,
+                                    dots: true
+                                }
+                            },
+                            {
+                                breakpoint: 600,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 2
+                                }
+                            },
+                            {
+                            breakpoint: 480,
+                                settings: {
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1
+                                }
+                            }
+                        ]
+                    });
+                });
+            </script>
+            <div class="product-carousel product-carousel-{{randomNumber}}">
+                {% for product in collection.products limit: section.settings.limit %}
+                {% include 'product-item', size:size%}
+            {% endfor %}
+        {% else %}
+         <div class="row">
+            {% for product in collection.products limit: section.settings.limit %}
+                {% include 'product-item', size:section.settings.item_size%}
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+</div>
+
+{% schema %}
+    {
+        "name": "Custom Collection",
+        "settings": [
+            
+            {
+                "type": "select",
+                "id": "type",
+                "label": "Display type",
+                "default": "grid",
+                "options":[
+                        {
+                            "value": "grid",
+                            "label": "Grid"
+                        },
+                        {
+                            "value": "carousel",
+                            "label": "Carousel"
+                        }
+                ]
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Section Title",
+                "default": "title",
+                "placeholder": "section title"
+            },
+            {
+                "type": "textarea",
+                "id": "details",
+                "label": "Section Details",
+                "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Select collection",
+                "info": "select any collection to show product list"
+            },
+            {
+                "type": "select",
+                "id": "text_alignment",
+                "label": "Text alignment",
+                "options": [
+                    {
+                        "value": "text-center",
+                        "label": "Middle"
+                    },
+                    {
+                        "value": "text-left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-right",
+                        "label": "Right"
+                    }
+                ],
+                "default": "text-center"
+            },
+            {
+                "type": "select",
+                "id": "item_size",
+                "label": "Product Per Row",
+                "options": [
+                    {
+                        "value": "2",
+                        "label": "Two"
+                    },
+                    {
+                        "value": "3",
+                        "label": "Three"
+                    },
+                    {
+                        "value": "4",
+                        "label": "Four"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "id": "limit",
+                "label": "Product Limit",
+                "default":"6"
+            },
+            {
+                "type": "range",
+                "id": "margin_top",
+                "min": 10,
+                "max": 50,
+                "step": 1,
+                "label": "Margin Top",
+                "default": 16
+            }
+        ],
+        "presets":[
+            {
+                "name":"Custom Collection",
+                "category":"custom collection"
+            }
+        ]
+    }
+{% endschema %}

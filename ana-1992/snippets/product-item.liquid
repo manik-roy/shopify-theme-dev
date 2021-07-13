@@ -1,0 +1,28 @@
+{% assign column_size = 'col-xl-3' %}
+
+{% case size %}
+    {% when '2' %}
+        {% assign column_size = 'col-xl-6 col-md-6' %}
+   {% when '3' %}
+        {% assign column_size = 'col-xl-4 col-md-4' %}
+    {% when '4' %}
+        {% assign column_size = 'col-xl-3 col-md-3' %}
+    {% when 'carousel' %}
+        {% assign column_size = 'single-carousel-item' %}    
+{% endcase %}
+
+<div class="{{column_size}}">
+    <div class="single-product-item mx-2">
+        <div class="product-image">
+                <a href="{{ product.url | within: collection }}">
+                <img class="w-100 h-100" src="{{product.featured_image.src | img_url: 'large' }}" alt=""> 
+            </a>
+        </div>
+        <h3 class="text-center pt-2">
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+        <div class="text-center pb-2">
+            {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+            {{ product.price | money }}
+        </div>
+    </div>
+</div>
